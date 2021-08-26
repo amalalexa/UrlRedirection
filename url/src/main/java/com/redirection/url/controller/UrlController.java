@@ -29,22 +29,14 @@ public class UrlController {
 	private UrlService urlService;
 	
 	@PostMapping("/shortUrl")
-	public String redirectToFullUrl(@RequestBody UrlView urlView) throws URISyntaxException
+	public ResponseEntity<?> redirectToFullUrl(@RequestBody UrlView urlView) throws URISyntaxException
 	{
-		//RedirectView redirectView = new RedirectView();
 		
 		String fullUrl = urlService.getFullUrlFromShortUrl(urlView.getShortUrl());
 		
-		return fullUrl;
+		if(fullUrl == null)
+			return ResponseEntity.badRequest().body("Invalid short Url");
 		
-		/*List<String> requestHeader = new ArrayList<String>();
-		requestHeader.add("Content-Type");
-		
-		
-		URI yahoo = new URI("http://localhost:8090");
-	    HttpHeaders httpHeaders = new HttpHeaders();
-	    httpHeaders.setLocation(yahoo);
-	    httpHeaders.setAccessControlAllowOrigin("http://localhost:8090");
-	    return new ResponseEntity<>(httpHeaders, HttpStatus.SEE_OTHER);*/
+		return ResponseEntity.ok().body(fullUrl);
 	}
 }

@@ -9,6 +9,9 @@ $(document).ready(function() {
 			contentType : "application/json; charset=utf-8",
 			success : function(data) {
 				window.location.href = data;
+			},
+			error: function(data){
+				$("#invalidUrl").append(data.responseText);
 			}
 		});
 	});
