@@ -20,10 +20,10 @@ public class UrlService {
 		if(lastIndexOfSlash != -1) {
 			urlToMatch = shortUrl.substring(0,lastIndexOfSlash);
 			searchString = shortUrl.substring(lastIndexOfSlash+1, shortUrl.length());
-			url = urlRepository.getFullUrlFromShortUrl(urlToMatch);
 		}
+		url = urlRepository.getFullUrlFromShortUrl(urlToMatch);
 		
-		if(url.isEmpty() || url == null )
+		if(url == null || url.isEmpty() )
 			return null;
 		
 		return url+searchString;
